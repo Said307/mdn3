@@ -1,0 +1,25 @@
+
+
+
+{% extends "../base.html" %}
+{% block title %}Home{% endblock %}
+{% load static %} 
+
+{% block content %}
+
+
+
+<h1> All Parts</h1>
+
+<ul> 
+ {% for part in object_list %}
+<li> 
+ <a href="{% url 'catalog:detailpart' part.pk %}"> {{part}}  </a>
+ {% endfor %} </li>
+
+</ul>
+
+ 
+ 
+<a href="/" >Go back </a>
+{% endblock %}

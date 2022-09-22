@@ -1,9 +1,50 @@
 
+{% extends "./base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
 
 {% load static %} 
 
 
-<h1>Welcome {{user}} </h1>
+<a href="{% url 'user:login' %}"> Login</a> <span> 
+    <a href="{% url 'user:logout' %}"> Logout</a></span>
+
+<p>Welcome {{user}} </p>
  
-<img src="/static/images/home.jpg" >
-<img src="{% static 'images/home.jpg' %}">
+ 
+
+
+
+
+<div style="border-style: solid;border-color: rgb(192, 192, 238);" class="container">
+  <div style="padding: 50px;"  class="row">
+
+
+
+ 
+    <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="/static/images/cp.jpg" >All Parts</a>
+    
+     </div>
+     <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="/static/images/cp.jpg" >All Parts</a>
+    
+     </div>
+
+     <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="/static/images/cp.jpg" >All Parts</a>
+    
+     </div>
+
+
+
+
+
+    
+  </div>  </div>
+
+
+
+
+
+<a href="/contact">Contact Us</a>
+
+{% endblock %}

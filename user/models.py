@@ -40,14 +40,18 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
-
+    name= models.CharField(max_length=100, default='Missing')
     user_name= models.CharField(max_length=200)
     email = models.EmailField(unique=True)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['username']
 
 
+    def __str__(self):
+        return self.name
+    
+    
 
-    def str(self):
-        return self.user_name
+
+ 

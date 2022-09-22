@@ -1,0 +1,21 @@
+{% extends "../base.html" %}
+{% block title %}Reset Password{% endblock %}
+{% load static %}
+{% block content %}
+
+
+
+ <div>
+
+ <h1> Your password has been reset </h1>
+
+
+ </div>
+
+<a href="{% url 'user:login' %}"> 
+ <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Sign in
+</button></a>
+
+
+
+{% endblock %}

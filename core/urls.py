@@ -19,11 +19,16 @@ from django.views.generic import RedirectView
 from core import settings
 from django.conf.urls.static import static
 
+from catalog.views import *
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('catalog/', include('catalog.urls')),
-    path('', include('catalog.urls')),
-    path('account/',include('user.urls')),
+    path('admin/', admin.site.urls,),
+     
+    path('catalog/', include('catalog.urls',namespace='catalog')),
+    path('', include('catalog.urls',namespace='home')),
+ 
+    path("account/",include("user.urls",namespace="account")),
+    path('contact/',ContactUs.as_view(),name='contactus'),
 
 
 ]
