@@ -15,11 +15,25 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-lg-6  mx-auto">
+
+                           
+                            {% if messages %}
+                            <div  class="alert alert-danger" role="alert">  
+                            <ul class="messages">
+                                {% for message in messages %}
+                                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>  </div> 
+                            {% endif %}
+
+
                             <form class="account-form p-4 rounded" action="" method="post">
 
                                 {% csrf_token %}
-                                <h3 class="mb-4">Sign In</h3>
-
+                                <h3 class="mb-4">Sign In</h3>  
+                                
+                        
+                                
                                 {% if form.errors %}
                                 <div class="alert alert-primary" role="alert">
                                     Error: Username or Password not correct!
@@ -56,4 +70,6 @@
 
     </div>
 </div>
+
+
 {% endblock %}

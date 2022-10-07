@@ -19,6 +19,7 @@ urlpatterns = [
     path('parts/<str:pk>/',views.DetailPartView.as_view(), name='detailpart'),
     path('thanks/',TemplateView.as_view(template_name='thanks.html'),name='thanks'),
  
+ 
 
 
 

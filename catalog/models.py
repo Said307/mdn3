@@ -1,3 +1,4 @@
+from email.policy import default
 from unittest.util import _MAX_LENGTH
 import uuid
 from django.db import models
@@ -24,6 +25,8 @@ class Part(models.Model):
     supplier = models.ForeignKey('Supplier', on_delete=models.SET_DEFAULT,default=1)
     archived =models.BooleanField(null=True)
     status =  models.CharField(max_length=200,null=True)
+    image= models.ImageField(null=True,upload_to="images",default="images/default.jpg")
+    specification = models.FileField(null=True,upload_to="documents")
     price = models.IntegerField(null=True)
     parts= PartsManager()   # custom model manager
     objects = models.Manager()

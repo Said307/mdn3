@@ -1,19 +1,21 @@
 
 {% extends "./base.html" %}
 {% block title %}Home{% endblock %}
+
+{% load static %} 
 {% block content %}
 
 
-{% load static %} 
+
 
 
 <a href="{% url 'user:login' %}"> Login</a> <span> 
     <a href="{% url 'user:logout' %}"> Logout</a></span>
 
-<p>Welcome {{user}} </p>
+<p>Welcome {{user}} </p>   <a href="/contact">Contact Us</a>
  
  
-
+ 
 
 
 
@@ -23,14 +25,14 @@
 
 
  
-    <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="/static/images/cp.jpg" >All Parts</a>
+    <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="{% static 'catalog/images/cp.jpg' %}"  >All Parts</a>
     
      </div>
-     <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="/static/images/cp.jpg" >All Parts</a>
+     <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="{% static 'catalog/images/cp.jpg' %}" >All Parts</a>
     
      </div>
 
-     <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="/static/images/cp.jpg" >All Parts</a>
+     <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="{% static 'images/parts.jpg' %}"  >All Parts</a>
     
      </div>
 
@@ -44,7 +46,6 @@
 
 
 
-
-<a href="/contact">Contact Us</a>
+ 
 
 {% endblock %}
