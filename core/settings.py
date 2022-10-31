@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig','user',
+    'api','rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,12 @@ LOGIN_URL = 'account/login'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
+
+
+ #Local Memory Cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        
+    }
+}

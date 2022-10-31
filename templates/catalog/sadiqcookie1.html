@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+{% extends "../base.html" %}
+{% block title %}Home{% endblock %}
+{% load static %} 
+
+{% block content %}
+
+
+
+<h1> set cookie </h1>
+ 
+
+ <strong> Current country is {{country}} </strong>
+<p> Please choose a new country </p>
+ <form action="" method="post">
+
+    {%csrf_token%}
+
+    <input type="text" name="country">
+    
+    <input type="submit"  value="Submit">
+
+ </form>
+
+
+
+
+
+{% endblock %}

@@ -6,11 +6,13 @@
 {% load static %} 
 
 {% block content %}
-
+ 
 
 
 <h1> All Parts</h1>
 
+
+<h1>{{cache}}</h1>
 <ul> 
  {% for part in object_list %}
 <li> 
@@ -19,7 +21,15 @@
 
 </ul>
 
+ <p> Session</p>
+ {{session}}
  
- {{request.session}}
+
+ <p>Cookies</p>
+ {{cookies}}}
+ 
+  
 <a href="/" >Go back </a>
+
+ 
 {% endblock %}
