@@ -1,6 +1,6 @@
 from http.client import HTTPResponse
 import io
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import Http404,HttpResponse,HttpResponseNotFound
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser,MultiPartParser,FormParser
@@ -212,16 +212,37 @@ class PartsListAPIView(generics.GenericAPIView,mixins.ListModelMixin,mixins.Crea
     serializer_class = serializers.PartSerializer
     queryset= Part.objects.all()
 
-    def get(self,request):
+    def get(self, request, *args, **kwargs):
+      
+        return self.list(request, *args, **kwargs)
 
-        return self.list(request)
-
-    def post(self,request):
-        return self.create(request)
-    def put(self,request,id=None):
-        return self.update(request,id)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
 
 
+
+
+
+class RetrieveUpdateDeletePart(
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    generics.GenericAPIView
+):
+
+    serializer_class = serializers.PartSerializer
+    queryset = Part.objects.all()
+
+    def get(self, request, *args, **kwargs):
+      
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 
@@ -231,15 +252,32 @@ class SuppliersListAPIView(generics.GenericAPIView,mixins.ListModelMixin,mixins.
                           mixins.UpdateModelMixin):
     serializer_class = serializers.SupplierSerializer
     queryset= Supplier.objects.all()
-    lookup_field ='id'
-    lookup_url_kwarg ='id'
-
-    def get(self,request):
-
-        return self.list(request)
+  
+ 
+    def get(self, request, *args, **kwargs):
     
-    def post(self,request):
-        return self.create(request)
+        return self.list(request, *args, **kwargs)
 
-    def put(self,request,id=None):
-        return self.update(request,id)
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class RetrieveUpdateDeleteSupplier(
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    generics.GenericAPIView
+):
+
+    serializer_class = serializers.SupplierSerializer
+    queryset = Supplier.objects.all()
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
