@@ -10,6 +10,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics,mixins
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 
 
 from . import serializers
@@ -250,6 +252,8 @@ class RetrieveUpdateDeletePart(
 #Suppliers
 class SuppliersListAPIView(generics.GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin,
                           mixins.UpdateModelMixin):
+    authentication_classes = [SessionAuthentication,BasicAuthentication]
+    permission_classes = [IsAuthenticated]                      
     serializer_class = serializers.SupplierSerializer
     queryset= Supplier.objects.all()
   
