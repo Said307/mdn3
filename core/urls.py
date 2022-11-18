@@ -30,10 +30,15 @@ urlpatterns = [
     path("account/",include("user.urls",namespace="account")),
     path('contact/',ContactUs.as_view(),name='contactus'),
     path('api/', include('api.urls',namespace='api')),
-    #path('api2/', include('api2.urls',namespace='api2')),
+    path('api2/', include('api2.urls',namespace='api2')),
 
 
 ]
+
+urlpatterns += [
+    path('api2/auth/', include('rest_framework.urls')),
+]
+
 
 
 if settings.DEBUG:

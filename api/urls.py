@@ -31,3 +31,21 @@ urlpatterns = [
 
      
 ]
+
+
+
+
+
+
+ ######  Routers
+
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register(r'suppliers',views.SupplierViewset,basename="supplier")
+
+urlpatterns =  [
+ 
+    path('',include(router.urls)),  
+
+ ]

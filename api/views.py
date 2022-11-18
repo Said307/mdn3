@@ -10,9 +10,9 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics,mixins
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import permissions
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
-
+from rest_framework import viewsets
 
 from . import serializers
 
@@ -207,7 +207,7 @@ class SupplierdetailAPIView(APIView):
 
 ##########################################################################################################
 
-############################      Generic views and mixins        #########################################
+############################      Generic views with mixins        #########################################
 
 class PartsListAPIView(generics.GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin,
                         mixins.UpdateModelMixin):
@@ -221,7 +221,9 @@ class PartsListAPIView(generics.GenericAPIView,mixins.ListModelMixin,mixins.Crea
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 
 
@@ -253,7 +255,7 @@ class RetrieveUpdateDeletePart(
 class SuppliersListAPIView(generics.GenericAPIView,mixins.ListModelMixin,mixins.CreateModelMixin,
                           mixins.UpdateModelMixin):
     authentication_classes = [SessionAuthentication,BasicAuthentication]
-    permission_classes = [IsAuthenticated]                      
+    permission_classes = [permissions.IsAuthenticated]                      
     serializer_class = serializers.SupplierSerializer
     queryset= Supplier.objects.all()
   
@@ -285,3 +287,45 @@ class RetrieveUpdateDeleteSupplier(
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+##########################################################################################################
+
+############################      Generic views with no mixin      #########################################
+
+
+class SnippetList(generics.ListCreateAPIView):
+    queryset = Supplier.objects.all()
+    serializer_class = serializers.SupplierSerializer
+
+
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset =  Supplier.objects.all()
+    serializer_class = serializers.SupplierSerializer
+
+
+
+
+
+
+##########################################################################################################
+
+############################     Viewsets      #########################################
+
+
+
+class SupplierViewset(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions. """
+
+    queryset =  Supplier.objects.all()
+    serializer_class = serializers.SupplierSerializer
+    permission_classes =  [permissions.IsAuthenticated]
+
+   
+    
+
+
+    #def perform_create(self, serializer):
+        #serializer.save(owner=self.request.user)
