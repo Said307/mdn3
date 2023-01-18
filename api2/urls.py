@@ -22,12 +22,13 @@ urlpatterns = [
  """
 
 
- ######  Routers
+#  ######  Routers
 
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'suppliers',views.SupplierViewset,basename="supplier")
+router.register(r'parts',views.PartsViewset,basename="part")
 
 urlpatterns =  [
  

@@ -2,26 +2,13 @@
 
 from rest_framework import serializers
 
-from catalog.models import Supplier
+from catalog.models import Supplier,Part
 
 
 
 
-class SupplierSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Supplier
-        fields = '__all__'
-
-
-
-
-
-
-
-
-
-
+   
+################################  Basic Serializer   ####################################
 
 """ class SupplierSerializer(serializers.Serializer):
     id = serializers.IntegerField( )
@@ -47,3 +34,72 @@ class SupplierSerializer(serializers.ModelSerializer):
 
         instance.save()
         return instance """
+
+
+
+
+
+        
+
+
+
+ 
+################################  Model Serializer   ####################################
+
+
+class PartSerializer(serializers.ModelSerializer):
+    """ All validation is done here in the serializer class"""
+    #supplier = SupplierSerializer(many=True, read_only=True)   # explicit nesting
+    class Meta:
+        model = Part
+        fields = '__all__'
+        #depth = 1
+         
+class SupplierSerializer(serializers.ModelSerializer):
+    parts= serializers.HyperlinkedRelatedField(
+         many=True,
+        read_only=True,
+        view_name='api2:part-detail')  # appname:viewname
+    
+    class Meta:
+        model = Supplier
+        fields = '__all__'
+        #depth=2
+       
+
+
+################################  HyperLinkedModel Serializer   ####################################
+
+""" 
+class SupplierSerializer(serializers.HyperlinkedModelSerializer):
+ 
+    url = serializers.HyperlinkedIdentityField(
+        view_name='api2:supplier-detail',
+        lookup_field='pk')
+
+    parts = serializers.HyperlinkedRelatedField(
+            view_name='api2:part-detail',
+            many=True,read_only=True)
+    
+    class Meta:
+        model = Supplier
+        fields = '__all__'
+       
+        
+
+class PartSerializer(serializers.HyperlinkedModelSerializer):              #must be call  url = 
+    url = serializers.HyperlinkedIdentityField(
+        view_name='api2:part-detail',
+        lookup_field='pk',
+       
+       )
+    supplier = serializers.HyperlinkedRelatedField(
+           
+            read_only=True,
+            view_name='api2:supplier-detail')
+  
+
+    class Meta:
+        model = Part
+        fields = '__all__'
+    """

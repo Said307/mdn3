@@ -8,6 +8,9 @@ from rest_framework import generics,permissions
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.reverse import reverse
 from rest_framework import viewsets
+
+from catalog.models import *
+
 from .serializers import *
 
 
@@ -104,12 +107,20 @@ class SupplierViewset(viewsets.ModelViewSet):
     `update` and `destroy` actions. """
 
     queryset =  Supplier.objects.all()
-    serializer_class = SupplierSerializer
+    serializer_class = SupplierSerializer 
     permission_classes =  [permissions.IsAuthenticated]
-
-   
-    
-
 
     #def perform_create(self, serializer):
         #serializer.save(owner=self.request.user)
+
+
+
+
+class PartsViewset(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions. """
+
+    queryset =  Part.objects.all()
+    serializer_class = PartSerializer
+    permission_classes =  [permissions.IsAuthenticated]
