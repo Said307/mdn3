@@ -37,9 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'catalog.apps.CatalogConfig','user',
-    'api','api2','rest_framework',
-    'rest_framework.authtoken',
+     'rest_framework',
+    'rest_framework.authtoken','product','users',
 ]
 
 MIDDLEWARE = [
@@ -160,7 +159,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 
-AUTH_USER_MODEL= 'user.CustomUser'
+#AUTH_USER_MODEL= 'user.CustomUser'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'account/login'
 LOGOUT_REDIRECT_URL = '/'

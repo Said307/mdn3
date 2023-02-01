@@ -19,29 +19,15 @@ from django.views.generic import RedirectView
 from rest_framework.authtoken.views import obtain_auth_token
 from core import settings
 from django.conf.urls.static import static
-
-from catalog.views import *
-
-urlpatterns = [
-    path('admin/', admin.site.urls,),
-     
-    path('catalog/', include('catalog.urls',namespace='catalog')),
-    path('', include('catalog.urls',namespace='home')),
+from django.views.generic.base import TemplateView
  
-    path("account/",include("user.urls",namespace="account")),
-    path('contact/',ContactUs.as_view(),name='contactus'),
-    path('api/', include('api.urls',namespace='api')),
-    path('api2/', include('api2.urls',namespace='api2')),
-
-
-]
-
-urlpatterns += [
-    path('api2/auth/', include('rest_framework.urls')),  #Authentication URLs
-   
-]
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',TemplateView.as_view(template_name='home.html'))]
+     
+ 
 
 
 
-if settings.DEBUG:
-     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#if settings.DEBUG:
+ #    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

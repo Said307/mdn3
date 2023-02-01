@@ -8,40 +8,21 @@
 
 
 
+<h1>Home</h1>
 
-<a href="{% url 'user:login' %}"> Login</a> <span> 
-    <a href="{% url 'user:logout' %}"> Logout</a></span>
+
+ 
 
 <p>Welcome {{user}} </p>   <a href="/contact">Contact Us</a>
  
  
  
-
-
-
-<div style="border-style: solid;border-color: rgb(192, 192, 238);" class="container">
-  <div style="padding: 50px;"  class="row">
-
+<img src="{% static 'images/home.jpg' %}">
+ 
 
 
  
-    <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="{% static 'catalog/images/cp.jpg' %}"  >All Parts</a>
-    
-     </div>
-     <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="{% static 'catalog/images/cp.jpg' %}" >All Parts</a>
-    
-     </div>
-
-     <div  style="padding: 10px;" class="col-sm-4"> <a href="{% url 'catalog:allparts' %}"> <img src="{% static 'images/parts.jpg' %}"  >All Parts</a>
-    
-     </div>
-
-
-
-
-
-    
-  </div>  </div>
+   </div>
 
 
 
