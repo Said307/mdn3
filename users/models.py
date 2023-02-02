@@ -17,10 +17,6 @@ GENDER_CHOICES = (
 )
 
 
- 
-
-       
- 
 
 
 class Profile(models.Model):
@@ -46,7 +42,7 @@ class Profile(models.Model):
 
     regex_message = 'Phone number must be entered in the format: 01999999999'
     regex_validator = RegexValidator(r'^(01)\d{9}$',message=regex_message)
-    phone_number = models.IntegerField(
+    phone_number = models.CharField(max_length=20,
         null=True,
         blank=True,
         validators=[regex_validator])
