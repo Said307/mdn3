@@ -21,11 +21,20 @@ from core import settings
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
  
+from users.api.views import UserView
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',TemplateView.as_view(template_name='home.html'))]
+    path('',TemplateView.as_view(template_name='home.html')),
+    ]
      
  
+
+
+#Api  URLs
+
+urlpatterns += [path('api/',UserView.as_view(),name='allusers')]
 
 
 
