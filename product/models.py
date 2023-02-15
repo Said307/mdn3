@@ -10,12 +10,6 @@ from django.contrib.auth.models import User
 
 from .managers import* 
 
-
-
-
-
-
-
 CONDITION_CHOICES = (
     ("NEW", "New"),
     ("USED", "Used"),
@@ -312,9 +306,10 @@ class Product(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     expensive =  ExpensiveProductsManager()
+    objects = models.Manager()
 
     def __str__(self):
-        return f'{self.id} - {self.title} - {self.seller}'
+        return f'{self.id} - {self.title}'
 
     class Meta:
         verbose_name = 'Product'
@@ -324,7 +319,7 @@ class Product(models.Model):
     #def get_absolute_url(self):
         #return reverse('product-detail',kwargs={'slug':self.slug})
 
-    def save(self):
+    def save(self,*args,**kwargs):
         """ create a slug for new poducts only"""
 
         if not self.slug:

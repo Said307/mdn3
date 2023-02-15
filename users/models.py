@@ -49,7 +49,7 @@ class Profile(models.Model):
     objects =  CustomUserManager()
 
 
-
+    #def save(self,*args,**kwargs):  override save method to amend an object before saving it
 
     def __str__(self):
         return self.user.email

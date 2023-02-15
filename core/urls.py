@@ -21,22 +21,19 @@ from core import settings
 from django.conf.urls.static import static
 from django.views.generic.base import TemplateView
  
-from users.api.views import UserView
+ 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',TemplateView.as_view(template_name='home.html')),
+    path('api/v1/',include('users.api.urls',namespace='users')),
+    path('api/v1/',include('product.api.urls',namespace='products')),
+     
     ]
      
  
 
 
-#Api  URLs
-
-urlpatterns += [path('api/',UserView.as_view(),name='allusers')]
-
-
-
-#if settings.DEBUG:
- #    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
