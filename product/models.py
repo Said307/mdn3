@@ -58,7 +58,7 @@ class ProductImage(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.id} - {self.product.title}'
+        return f'{self.id} - {self.product.title}' 
 
     class Meta:
         verbose_name = 'Product Image'
@@ -134,6 +134,10 @@ class DeliveryType(models.Model):
         verbose_name = 'Delivery Type'
         verbose_name_plural = 'Delivery Types'
         ordering = ('id',)
+
+
+    def __unicode__(self):
+        return self.type
 
 class ProductQuestion(models.Model):
     text = models.TextField(null=False, blank=False)

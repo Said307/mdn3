@@ -18,7 +18,7 @@ class ProductAdmin(admin.ModelAdmin):
         'delivery_type',
         'is_active',
         'created_on',
-        'updated_on'
+        'updated_on','get_rating'
     )
     prepopulated_fields = {"slug": ("title","description")}
 
@@ -30,4 +30,5 @@ admin.site.register(ProductQuestion)
 admin.site.register(ProductReview)
 admin.site.register(Tag)
 admin.site.register(DeliveryType)
+admin.site.register(BrowsingHistory)
  

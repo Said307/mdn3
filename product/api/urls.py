@@ -16,6 +16,7 @@ urlpatterns=[
     
     
     path('products/', ProductListAPIView.as_view(), name='products'),
+    path('browsinghistory/', BrowsingAPIView.as_view(), name='categories'),
 
 
 

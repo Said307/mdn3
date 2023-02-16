@@ -25,21 +25,25 @@ class ProductReviewSerializer(serializers.ModelSerializer):
         model= ProductReview
         fields = '__all__'
 
-
+ 
 class ProductSerializer(serializers.ModelSerializer):
     total_price = serializers.SerializerMethodField('get_total_price')
     tags = serializers.SerializerMethodField('get_tags')
     seller = serializers.SerializerMethodField('get_seller')
-    rating = serializers.DecimalField(max_digits=10,decimal_places=2,source='get_rating')
+    rating = serializers.DecimalField(max_digits=10,decimal_places=2,source='get_rating',read_only=True)
     #delivery_type = DeliveryTypeSerializer(read_only=True)              # shows nested record
     delivery_type = serializers.PrimaryKeyRelatedField(read_only=True)  # shows FK only
     questions = ProductQuestionSerializer(read_only=True, many=True)
     reviews = ProductReviewSerializer(read_only=True, many=True)
-
+    
+ 
+ 
 
     class Meta:
         model= Product
         fields = '__all__'
+        read_only_fields = ['rating','total_price','questions','reviews']
+    
 
     def create(self, validated_data):
         return Product.objects.create(**validated_data)
@@ -71,4 +75,22 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 
+ 
+ 
 
+        
+
+class BrowsingHistorySerializer(serializers.ModelSerializer):
+    #products = ProductSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = BrowsingHistory
+        fields = '__all__'
+
+
+class ProductImageSerializer(serializers.ModelSerializer):
+   
+
+    class Meta:
+        model = ProductImage
+        fields = '__all__'
