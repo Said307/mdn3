@@ -322,13 +322,15 @@ class Product(models.Model):
     
     #def get_absolute_url(self):
         #return reverse('product-detail',kwargs={'slug':self.slug})
+    
 
-    def save(self,*args,**kwargs):
-        """ create a slug for new poducts only"""
+    # def save(self,*args,**kwargs):
+    #     """ create a slug for new poducts only"""
 
-        if not self.slug:
-            self.slug = slugify(self.title)
-        return super().save(*args,**kwargs)
+    #     if not self.slug:
+    #         slug = f"{self.title}-{uuid.uuid4}"
+    #         self.slug = slugify(slug)
+    #     return super().save(*args,**kwargs)
     
     
     def get_rating(self):
@@ -344,6 +346,7 @@ class Product(models.Model):
             return total
         else:
             return 0
+
     
 
 class Wishlist(models.Model):

@@ -1,5 +1,5 @@
 
-
+from django.template.defaultfilters import slugify
 from  rest_framework import serializers  
 
 
@@ -27,6 +27,7 @@ class ProductReviewSerializer(serializers.ModelSerializer):
 
  
 class ProductSerializer(serializers.ModelSerializer):
+    
     total_price = serializers.SerializerMethodField('get_total_price')
     tags = serializers.SerializerMethodField('get_tags')
     seller = serializers.SerializerMethodField('get_seller')
