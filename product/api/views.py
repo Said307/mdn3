@@ -43,3 +43,22 @@ class BrowsingAPIView(APIView):
         return Response(serializer.data)
 
 
+
+class ProductQuestionsAPIView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated] 
+
+    def get(self,request):
+
+        query= ProductQuestion.objects.all()
+        serializer = ProductQuestionSerializer(query,many=True)
+        return Response(serializer.data)
+    
+    def post(self,request):
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid(author=self.request.user):
+            
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+   
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

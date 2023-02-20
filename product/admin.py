@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
         'price',
         'discount',
         'description',
-        'condition',
+        'condition','category',
         'seller',
         'delivery_type',
         'is_active',
@@ -22,11 +22,25 @@ class ProductAdmin(admin.ModelAdmin):
     )
     prepopulated_fields = {"slug": ("title","description")}
 
+
+
+class ProductQuestionAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'text', 'reply','created_on','updated_on'
+    )
+
+class ProductCategoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'title', 'parent','created_on','updated_on'
+    )
+
 admin.site.register(Product,ProductAdmin)
-admin.site.register(ProductCategory)
+admin.site.register(ProductCategory,ProductCategoryAdmin)
 admin.site.register(ProductImage)
 admin.site.register(ProductVideo)
-admin.site.register(ProductQuestion)
+admin.site.register(ProductQuestion,ProductQuestionAdmin)
 admin.site.register(ProductReview)
 admin.site.register(Tag)
 admin.site.register(DeliveryType)

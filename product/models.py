@@ -163,7 +163,7 @@ class ProductQuestion(models.Model):
         on_delete=models.CASCADE,
         related_name='questions'
     )
-    parent = models.ForeignKey(
+    reply = models.ForeignKey(
         'self',
         null=True,
         blank=True,
@@ -175,7 +175,7 @@ class ProductQuestion(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.id} - {self.text} - {self.user}'
+        return f'{self.id} - {self.text} - {self.author}'
 
     class Meta:
         verbose_name = 'Product Question'
@@ -324,13 +324,13 @@ class Product(models.Model):
         #return reverse('product-detail',kwargs={'slug':self.slug})
     
 
-    # def save(self,*args,**kwargs):
-    #     """ create a slug for new poducts only"""
+    def save(self,*args,**kwargs):
+        """ create a slug for new poducts only"""
 
-    #     if not self.slug:
-    #         slug = f"{self.title}-{uuid.uuid4}"
-    #         self.slug = slugify(slug)
-    #     return super().save(*args,**kwargs)
+        if not self.slug:
+            slug = f"{self.title}-{uuid.uuid4()}"
+            self.slug = slugify(slug)
+        return super().save(*args,**kwargs)
     
     
     def get_rating(self):

@@ -36,14 +36,11 @@ class ProductSerializer(serializers.ModelSerializer):
     delivery_type = serializers.PrimaryKeyRelatedField(read_only=True)  # shows FK only
     questions = ProductQuestionSerializer(read_only=True, many=True)
     reviews = ProductReviewSerializer(read_only=True, many=True)
-    
- 
- 
 
     class Meta:
         model= Product
         fields = '__all__'
-        read_only_fields = ['rating','total_price','questions','reviews']
+ 
     
 
     def create(self, validated_data):
@@ -79,7 +76,15 @@ class ProductSerializer(serializers.ModelSerializer):
  
  
 
-        
+class ProductQuestionSerializer(serializers.ModelSerializer):  
+
+    class Meta:
+        model = ProductQuestion
+        fields ='__all__'
+
+
+
+
 
 class BrowsingHistorySerializer(serializers.ModelSerializer):
     #products = ProductSerializer(read_only=True, many=True)
