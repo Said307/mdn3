@@ -74,7 +74,20 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
  
+class ProductImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model= ProductImage
+        fields= '__all__'
  
+
+    def update(self,validated_data,instance):
+
+        instance.image = validated_data.get('image',instance.email)
+        instance.save()
+        return instance
+
+
 
 class ProductQuestionSerializer(serializers.ModelSerializer):  
 

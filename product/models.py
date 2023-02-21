@@ -1,4 +1,5 @@
 import uuid
+from io import BytesIO
 from PIL import Image
 from django.core.files import File
 from django.db import models
@@ -47,7 +48,7 @@ class Tag(models.Model):
 
 
 class ProductImage(models.Model):
-    image = models.ImageField(upload_to='images',validators=[FileExtensionValidator(['png','jpg','jpeg'])])
+    image = models.ImageField(upload_to='product_images',validators=[FileExtensionValidator(['png','jpg','jpeg'])])
     thumbnail = models.ImageField(
         upload_to='product_images/thumbnails/',
         null=True,
@@ -67,6 +68,7 @@ class ProductImage(models.Model):
 
     def save(self,*args,**kwargs):
         self.thumbnail =  self.make_thumbnail(self.image)
+        super().save(*args, **kwargs)
     
     def make_thumbnail(self,image,size=(300,200)):
         """ Method to create thumbnail from image"""
