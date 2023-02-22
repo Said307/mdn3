@@ -82,10 +82,24 @@ class ProductImageSerializer(serializers.ModelSerializer):
  
 
     def update(self,validated_data,instance):
-
+        print('caleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed')
         instance.image = validated_data.get('image',instance.email)
         instance.save()
         return instance
+    
+    def create(self, validated_data):
+        
+        return  
+             
+    
+    def validate(self,data):
+        request= self.context['request']
+        if data['product'].seller != request.user:
+            raise serializers.ValidationError('You are not allowed to do this action')
+
+        return data
+        
+
 
 
 

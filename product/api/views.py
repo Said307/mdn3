@@ -64,13 +64,31 @@ class ProductDetailAPIView(APIView):
 class ProductImageCreateAPIView(APIView):  
     permission_classes = [permissions.IsAuthenticated] 
 
+    
+    def get_object(self,id):
+        try:
+           
+            return  ProductImage.objects.get(id=id)
+        except ProductImage.DoesNotExist:
+            raise Http404("image does not exist")
+
     def post(self,request):
         serializer = ProductImageSerializer(data=request.data)
-        if serializer.is_valid():
+        if  serializer.is_valid():
             serializer.save()
             return Response(f'new image uploaded',status=status.HTTP_201_CREATED) 
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-
+    
+    def put(self,request):
+        print(self.kwargs)
+        pk = self.request.data['pk']
+        image=  self.get_object(id=pk)
+        serializer = ProductImageSerializer(image,data=request.data)
+        if  serializer.is_valid():
+            serializer.save()
+            return Response(f'image updated',status=status.HTTP_201_CREATED) 
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+ 
     
 class ProductImageDeleteAPIView(APIView):  
     permission_classes = [permissions.IsAuthenticated] 
