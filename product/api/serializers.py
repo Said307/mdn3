@@ -74,31 +74,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
  
-class ProductImageSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model= ProductImage
-        fields= '__all__'
- 
-
-    def update(self,validated_data,instance):
-        print('caleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed')
-        instance.image = validated_data.get('image',instance.email)
-        instance.save()
-        return instance
-    
-    def create(self, validated_data):
-        
-        return  
-             
-    
-    def validate(self,data):
-        request= self.context['request']
-        if data['product'].seller != request.user:
-            raise serializers.ValidationError('You are not allowed to do this action')
-
-        return data
-        
 
 
 
@@ -121,9 +97,35 @@ class BrowsingHistorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+ 
+
+
+
 class ProductImageSerializer(serializers.ModelSerializer):
-   
 
     class Meta:
-        model = ProductImage
-        fields = '__all__'
+        model= ProductImage
+        fields= '__all__'
+        extra_kwargs = {
+            'image': {'required': True},
+            'product': {'required': True}
+        } 
+
+    # def update(self,validated_data,instance):
+    #     #edit here
+    #     return super(ProductImageSerializer,self).update(validated_data,instance)
+    
+    def update(self,instance,validated_data):
+        instance.image = validated_data.pop('image')
+        instance.save()
+        return instance  
+             
+    
+    def validate(self, data):
+        request = self.context['request']
+        if data['product'].seller != request.user:
+            raise serializers.ValidationError('You are not allowed to do this action')
+
+        return data
+
+

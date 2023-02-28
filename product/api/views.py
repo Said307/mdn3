@@ -3,6 +3,8 @@ from django.http import Http404,HttpResponse,HttpResponseNotFound
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status,permissions
+from rest_framework.generics import ListAPIView
+from rest_framework import filters
 
 from product.models import *
 from .serializers import *
@@ -61,6 +63,42 @@ class ProductDetailAPIView(APIView):
         return Response('Part deleted succesfullly',status=status.HTTP_204_NO_CONTENT)
 
 
+
+
+class CurrentUserProductsListAPIView(ListAPIView):
+
+     
+    query_set = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+         products = Product.objects.filter(seller=self.request.user)
+         
+         return products
+
+
+class UserProductsListAPIView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = (permissions.AllowAny,)
+    filter_backends = [filters.DjangoFilterBackend]
+    
+
+    def get_queryset(self):
+        print(self.kwargs)
+        print(self.request.query_params)
+        products = Product.objects.filter(seller__username=self.kwargs['username'])
+        return products
+    
+
+
+
+
+
+
+#####################################################################
+
 class ProductImageCreateAPIView(APIView):  
     permission_classes = [permissions.IsAuthenticated] 
 
@@ -76,16 +114,20 @@ class ProductImageCreateAPIView(APIView):
         serializer = ProductImageSerializer(data=request.data)
         if  serializer.is_valid():
             serializer.save()
+          
             return Response(f'new image uploaded',status=status.HTTP_201_CREATED) 
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
     def put(self,request):
-        print(self.kwargs)
+     
         pk = self.request.data['pk']
         image=  self.get_object(id=pk)
-        serializer = ProductImageSerializer(image,data=request.data)
-        if  serializer.is_valid():
+        serializer = ProductImageSerializer(image,data=request.data,context={'request':request})
+        if  serializer.is_valid(raise_exception=True):
+     
+          
             serializer.save()
+           
             return Response(f'image updated',status=status.HTTP_201_CREATED) 
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
  
