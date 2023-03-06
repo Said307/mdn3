@@ -15,7 +15,7 @@ class ProductAdmin(admin.ModelAdmin):
         'description',
         'condition','category',
         'seller',
-        'delivery_type',
+        'delivery_type','get_tags',
         'is_active',
         'created_on',
         'updated_on','get_rating'

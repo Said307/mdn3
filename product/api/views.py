@@ -4,7 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status,permissions
 from rest_framework.generics import ListAPIView
-from rest_framework import filters
+from rest_framework import generics, filters, status
+from django_filters import rest_framework 
 
 from product.models import *
 from .serializers import *
@@ -12,12 +13,16 @@ from .serializers import *
 
 
 
-class ProductListAPIView(APIView):
-
+class ProductListAPIView(ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
     permission_classes = [permissions.IsAuthenticated] 
+    #filter_backends = (filters.SearchFilter,)
+    search_fields = ['description']
+    
 
     def get(self,request):
-
+       
         query= Product.objects.all()
         serializer = ProductSerializer(query,many=True)
         return Response(serializer.data)
@@ -35,6 +40,7 @@ class ProductListAPIView(APIView):
 
 class ProductDetailAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated] 
+  
 
 
     def get_object(self,id):
@@ -67,8 +73,6 @@ class ProductDetailAPIView(APIView):
 
 class CurrentUserProductsListAPIView(ListAPIView):
 
-     
-    query_set = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -82,12 +86,12 @@ class UserProductsListAPIView(ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = (permissions.AllowAny,)
-    filter_backends = [filters.DjangoFilterBackend]
-    
+    #filter_backends = (filters.SearchFilter,)
+    search_fields = ['title']
+    filter_fields =[]
 
     def get_queryset(self):
-        print(self.kwargs)
-        print(self.request.query_params)
+    
         products = Product.objects.filter(seller__username=self.kwargs['username'])
         return products
     

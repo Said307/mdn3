@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os,datetime
 from pathlib import Path
-
+ 
 from dotenv import find_dotenv, load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -75,15 +75,18 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.BasicAuthentication',  
+    
         #'rest_framework.authentication.SessionAuthentication',  
-        #'rest_framework_simplejwt.authentication.JWTAuthentication',  
-        
-    ]
+        #'rest_framework_simplejwt.authentication.JWTAuthentication', 
+          ],
+    'DEFAULT_FILTER_BACKENDS':('rest_framework.filters.SearchFilter',),   }
+    
 
 
 
-}
+
+ 
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=500),

@@ -348,7 +348,9 @@ class Product(models.Model):
             return total
         else:
             return 0
+    def get_tags(self):
 
+        return [tag.title for tag in self.tags.all()]
     
 
 class Wishlist(models.Model):
